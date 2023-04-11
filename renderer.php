@@ -14,7 +14,7 @@ class qbehaviour_appstester_renderer extends qbehaviour_renderer {
     }
 
     public function feedback(question_attempt $qa, question_display_options $options) {
-        if (!$qa->get_state()->is_active() || $qa->get_state() === question_state::$complete ||
+        if (!$qa->get_state()->is_active() || $qa->get_state() === question_state::$invalid ||
                 ($options->readonly !== qbehaviour_interactive::TRY_AGAIN_VISIBLE &&
                 $options->readonly !== qbehaviour_interactive::TRY_AGAIN_VISIBLE_READONLY)) {
             return '';

@@ -67,13 +67,13 @@ class qbehaviour_appstester extends question_behaviour_with_multiple_tries {
     public function get_state_string($showcorrectness) {
         $state = $this->qa->get_state();
 
-        if ($state === question_state::$complete) {
+        if ($state === question_state::$invalid) {
             if ($this->qa->get_last_step()->has_behaviour_var('status')) {
                 return get_string('checking', 'qbehaviour_appstester');
             }
 
             return get_string('in_queue', 'qbehaviour_appstester');
-        } else if ($state === question_state::$invalid) {
+        } else if ($state === question_state::$complete) {
             return get_string('checked', 'qbehaviour_appstester');
         } else if ($state === question_state::$finished) {
             if ($this->qa->get_last_step_with_behaviour_var('submit') === $this->qa->get_last_step_with_behaviour_var('status')) {
@@ -135,7 +135,7 @@ class qbehaviour_appstester extends question_behaviour_with_multiple_tries {
 //        if ($this->is_same_response($pendingstep)) {
 //            return question_attempt::DISCARD;
 //        }
-        $pendingstep->set_state(question_state::$complete);
+        $pendingstep->set_state(question_state::$invalid);
         $pendingstep->set_fraction(0);
         $response = $pendingstep->get_qt_data();
         $pendingstep->set_new_response_summary($this->question->summarise_response($response));
@@ -167,7 +167,7 @@ class qbehaviour_appstester extends question_behaviour_with_multiple_tries {
             $pendingstep->set_fraction($max_fraction);
 
             $laststep = $this->qa->get_last_step();
-            if ($laststep->get_state() === question_state::$complete) {
+            if ($laststep->get_state() === question_state::$invalid) {
                 $pendingstep->set_state(question_state::$finished);
             } else {
                 if ($max_fraction < 0.000001) {
