@@ -122,6 +122,7 @@ class qbehaviour_appstester extends question_behaviour_with_multiple_tries {
 
     public function process_try_again(question_attempt_pending_step $pendingstep) {
         $pendingstep->set_state(question_state::$todo);
+        \core\notification::warning(get_string('dont_forget_to_update_file', 'qbehaviour_appstester'));
         return question_attempt::KEEP;
     }
 
