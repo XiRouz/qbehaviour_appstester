@@ -138,6 +138,7 @@ class qbehaviour_appstester extends question_behaviour_with_multiple_tries {
 //        }
         $pendingstep->set_state(question_state::$invalid);
         $pendingstep->set_fraction(0);
+        $pendingstep->set_behaviour_var('_timesubmitted', (string)time());
         $response = $pendingstep->get_qt_data();
         $pendingstep->set_new_response_summary($this->question->summarise_response($response));
 
